@@ -1,0 +1,22 @@
+.input {
+    background: none;
+    border: none;
+    border-bottom:2px solid #000;
+    font-size:36px;
+    font-weight:700;
+    padding:10px 20px;
+}
+
+.input:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.input:active {
+    opacity:0.65;
+}
+
+.input:focus {
+    background-color: rgba(0, 0, 0, 0.2);
+    outline:none;
+}
+

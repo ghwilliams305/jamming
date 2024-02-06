@@ -1,0 +1,41 @@
+.background {
+    background-color: rgba(255, 255, 255, 0.25);
+    border-radius:30px;
+    display:grid;
+    gap:5px;
+    grid-template: 2fr 1fr / 4fr 1fr;
+    padding:20px;
+}
+
+.button {
+    background-color: rgba(0, 0, 0, 0.3);
+    border:none;
+    border-radius:10px;
+    color:#000;
+    font-size:24px;
+    grid-area:1 / 2 / span 2 / span 1;
+    height:50%;
+    position: relative;
+    right:-25%;
+    top:25%;
+    width:50%;
+}
+
+.button:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+    color:#fff;
+}
+
+.button:active {
+    background-color: rgba(0, 0, 0, 1);
+}
+
+.fontOne {
+    border-bottom: 1px solid #000;
+    font-size:24px;
+    grid-row: 1 / span 1;
+}
+
+.fontTwo {
+    font-size:18px;
+}
