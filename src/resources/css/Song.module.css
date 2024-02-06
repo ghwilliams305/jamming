@@ -4,6 +4,7 @@
     display:grid;
     gap:5px;
     grid-template: 2fr 1fr / 4fr 1fr;
+    margin-bottom:30px;
     padding:20px;
 }
 
@@ -34,8 +35,10 @@
     border-bottom: 1px solid #000;
     font-size:24px;
     grid-row: 1 / span 1;
+    text-align:left;
 }
 
 .fontTwo {
     font-size:18px;
+    text-align: left;
 }

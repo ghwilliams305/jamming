@@ -21,11 +21,29 @@ const mockSongs = [
     album: 'Star Cycle',
     name: 'Flared'
   }
+];
+
+const mockSongsTwo = [
+  {
+    artist: 'Blue Apollo Music',
+    album: 'Internal Flame',
+    name: 'Spark'
+  },
+  {
+    artist: 'Blue Apollo Music',
+    album: 'Star Cycle',
+    name: 'Remnant'
+  },
+  {
+    artist: 'Blue Apollo Music',
+    album: 'Star Cycle',
+    name: 'Birth'
+  }
 ]
 
 function App() {
   const [result, setResult] = useState(mockSongs);
-  const [playlist, setPlayList] = useState(mockSongs);
+  const [playlist, setPlayList] = useState(mockSongsTwo);
   const [searchBar, setSearchBar] = useState('Song Name');
 
   const handleSeach = (value) => {
