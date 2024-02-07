@@ -20,10 +20,7 @@ const mockSongs = [
     artist: 'Blue Apollo Music',
     album: 'Star Cycle',
     name: 'Flared'
-  }
-];
-
-const mockSongsTwo = [
+  },
   {
     artist: 'Blue Apollo Music',
     album: 'Internal Flame',
@@ -39,15 +36,36 @@ const mockSongsTwo = [
     album: 'Star Cycle',
     name: 'Birth'
   }
-]
+];
+
 
 function App() {
   const [result, setResult] = useState(mockSongs);
-  const [playlist, setPlayList] = useState(mockSongsTwo);
+  const [playlist, setPlayList] = useState([]);
   const [searchBar, setSearchBar] = useState('Song Name');
 
   const handleSeach = (value) => {
     setSearchBar(value);
+  }
+
+  const handleButton = songProps => {
+    const songData = {
+      artist: songProps.artist,
+      album: songProps.album,
+      name: songProps.name
+    }
+
+    if(songProps.posneg === '+') {
+      setPlayList(prev => {
+        if(!prev.some(song => song.name === songData.name)) {
+          return [songData, ...prev];
+        } else {
+          return [...prev];
+        }
+      });
+    } else {
+      setPlayList(prev => prev.filter(song => song.name !== songData.name));
+    }
   }
 
   return (
@@ -63,7 +81,8 @@ function App() {
                 posneg='+'
                 artist={song.artist}
                 album={song.album}
-                name={song.name} />
+                name={song.name}
+                handleButton={handleButton} />
             ))}
           </Results>
           <Playlist>
@@ -72,7 +91,8 @@ function App() {
                 posneg='-'
                 artist={song.artist}
                 album={song.album}
-                name={song.name} />
+                name={song.name}
+                handleButton={handleButton}  />
             ))}
           </Playlist>
         </article>
