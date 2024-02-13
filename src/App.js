@@ -9,32 +9,38 @@ const mockSongs = [
   {
     artist: 'Blue Apollo Music',
     album: 'Internal Flame',
-    name: 'Smothering'
+    name: 'Smothering',
+    uri: 'kdsjgfhos'
   },
   {
     artist: 'Blue Apollo Music',
     album: 'Internal Flame',
-    name: 'Overpower'
+    name: 'Overpower',
+    uri: 'hsgljk'
   },
   {
     artist: 'Blue Apollo Music',
     album: 'Star Cycle',
-    name: 'Flared'
+    name: 'Flared',
+    uri: 'iuyhas',
   },
   {
     artist: 'Blue Apollo Music',
     album: 'Internal Flame',
-    name: 'Spark'
+    name: 'Spark',
+    uri: 'poivbn',
   },
   {
     artist: 'Blue Apollo Music',
     album: 'Star Cycle',
-    name: 'Remnant'
+    name: 'Remnant',
+    uri: 'oiygnmiuyg'
   },
   {
     artist: 'Blue Apollo Music',
     album: 'Star Cycle',
-    name: 'Birth'
+    name: 'Birth',
+    uri: 'ertyujnbv'
   }
 ];
 
@@ -52,7 +58,8 @@ function App() {
     const songData = {
       artist: songProps.artist,
       album: songProps.album,
-      name: songProps.name
+      name: songProps.name,
+      uri: songProps.uri
     }
 
     if(songProps.posneg === '+') {
@@ -66,6 +73,22 @@ function App() {
     } else {
       setPlayList(prev => prev.filter(song => song.name !== songData.name));
     }
+  }
+
+  const handleSave = name => {
+    const uris = [];
+
+    for(let x of playlist) {
+      uris.push(x.uri);
+    }
+
+    setPlayList([]);
+
+    const toSend = {
+      playlist: name,
+      uri: uris
+    }
+    return toSend;
   }
 
   return (
@@ -82,17 +105,19 @@ function App() {
                 artist={song.artist}
                 album={song.album}
                 name={song.name}
+                uri={song.uri}
                 handleButton={handleButton} />
             ))}
           </Results>
-          <Playlist>
+          <Playlist handleSave={handleSave}>
           {playlist.map(song => (
               <Song 
                 posneg='-'
                 artist={song.artist}
                 album={song.album}
                 name={song.name}
-                handleButton={handleButton}  />
+                uri={song.uri}
+                handleButton={handleButton} />
             ))}
           </Playlist>
         </article>

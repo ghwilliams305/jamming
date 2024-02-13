@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 function Playlist(props) {
     const [listName, setListName] = useState('Playlist Name?');
+    const [data, setData] = useState('');
 
     const handleChange = ({target}) => {
         setListName(target.value);
@@ -21,6 +22,12 @@ function Playlist(props) {
         }
     }
 
+    const handleSave = () => {
+        const toSendObj = props.handleSave(listName);
+
+        setData(JSON.stringify(toSendObj));
+    }
+
     return (
         <div className={styles.body}>
             <input 
@@ -34,6 +41,10 @@ function Playlist(props) {
                value={listName} />
             <hr className={styles.hr} />
             <ul>{props.children}</ul>
+            <button 
+                className={moreStyles.button} 
+                onClick={handleSave}>Save to Spotify</button>
+            <p>{data}</p>
         </div>
     );
 }
