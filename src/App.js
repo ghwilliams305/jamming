@@ -3,55 +3,28 @@ import SearchBar from './components/SearchBar';
 import Results from './components/Results';
 import Song from './components/Song';
 import Playlist from './components/Playlist';
-import { useState } from 'react';
-
-const mockSongs = [
-  {
-    artist: 'Blue Apollo Music',
-    album: 'Internal Flame',
-    name: 'Smothering',
-    uri: 'kdsjgfhos'
-  },
-  {
-    artist: 'Blue Apollo Music',
-    album: 'Internal Flame',
-    name: 'Overpower',
-    uri: 'hsgljk'
-  },
-  {
-    artist: 'Blue Apollo Music',
-    album: 'Star Cycle',
-    name: 'Flared',
-    uri: 'iuyhas',
-  },
-  {
-    artist: 'Blue Apollo Music',
-    album: 'Internal Flame',
-    name: 'Spark',
-    uri: 'poivbn',
-  },
-  {
-    artist: 'Blue Apollo Music',
-    album: 'Star Cycle',
-    name: 'Remnant',
-    uri: 'oiygnmiuyg'
-  },
-  {
-    artist: 'Blue Apollo Music',
-    album: 'Star Cycle',
-    name: 'Birth',
-    uri: 'ertyujnbv'
-  }
-];
-
+import { useEffect, useState } from 'react';
+import Spotify from './resources/js/spotify';
 
 function App() {
-  const [result, setResult] = useState(mockSongs);
+  const [result, setResult] = useState([]);
   const [playlist, setPlayList] = useState([]);
   const [searchBar, setSearchBar] = useState('Song Name');
+  const [listName, setListName] = useState('Playlist Name?');
+
+  useEffect(() => {
+    if(searchBar && searchBar !== 'Song Name') {
+      const searchResults = Spotify.search(searchBar);
+      setResult(searchResults);
+    }
+  }, [searchBar]);
 
   const handleSeach = (value) => {
     setSearchBar(value);
+  }
+
+  const handleNaming = (value) => {
+    setListName(value);
   }
 
   const handleButton = songProps => {
@@ -84,11 +57,7 @@ function App() {
 
     setPlayList([]);
 
-    const toSend = {
-      playlist: name,
-      uri: uris
-    }
-    return toSend;
+    Spotify.savePlaylist(listName, uris)
   }
 
   return (
@@ -99,17 +68,13 @@ function App() {
           handleSearch={handleSeach} />
         <article className={style.article}>
           <Results>
-            {result.map(song => (
-              <Song 
-                posneg='+'
-                artist={song.artist}
-                album={song.album}
-                name={song.name}
-                uri={song.uri}
-                handleButton={handleButton} />
-            ))}
+            
+            {`${searchBar} => ${result}`}
           </Results>
-          <Playlist handleSave={handleSave}>
+          <Playlist 
+            handleSave={handleSave}
+            handleNaming={handleNaming}
+            name={listName}>
           {playlist.map(song => (
               <Song 
                 posneg='-'
@@ -127,3 +92,14 @@ function App() {
 }
 
 export default App;
+/*
+(typeof result === 'string' || !result) ? <p>Loading</p> : result.map(song => (
+  <Song 
+    posneg='+'
+    artist={song.artist}
+    album={song.album}
+    name={song.name}
+    uri={song.uri}
+    handleButton={handleButton} />
+))
+*/

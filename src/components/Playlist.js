@@ -3,29 +3,24 @@ import moreStyles from '../resources/css/Playlist.module.css';
 import { useState } from 'react';
 
 function Playlist(props) {
-    const [listName, setListName] = useState('Playlist Name?');
-    const [data, setData] = useState('');
-
     const handleChange = ({target}) => {
-        setListName(target.value);
+        props.handleNaming(target.value);
     }
 
     const handleClick = ({target}) => {
         if(target.value === 'Playlist Name?') {
-            setListName('');
+            props.handleNaming('');
         }
     }
 
     const handleBlur = ({target}) => {
         if(target.value === '') {
-            setListName('Playlist Name?');
+            props.handleNaming('Playlist Name?');
         }
     }
 
     const handleSave = () => {
-        const toSendObj = props.handleSave(listName);
-
-        setData(JSON.stringify(toSendObj));
+        props.handleSave(props.name);
     }
 
     return (
@@ -38,13 +33,12 @@ function Playlist(props) {
                onChange={handleChange}
                onClick={handleClick}
                onBlur={handleBlur}
-               value={listName} />
+               value={props.name} />
             <hr className={styles.hr} />
             <ul>{props.children}</ul>
             <button 
                 className={moreStyles.button} 
                 onClick={handleSave}>Save to Spotify</button>
-            <p>{data}</p>
         </div>
     );
 }
